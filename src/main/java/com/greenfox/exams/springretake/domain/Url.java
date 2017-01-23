@@ -1,25 +1,20 @@
 package com.greenfox.exams.springretake.domain;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by ${rudolfps} on 2017.01.23..
  */
+@Data
 @Entity
 @Table(name="urlstore")
-@Data
 public class Url {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @NotNull
-    private String url;
-    private String generated;
-
+    private long id;
+    private String urlinput;
+    private String generatedKey;
 }
-
-

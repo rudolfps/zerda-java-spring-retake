@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Shortened</title>
+    <title>showpage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div>
-    <p th:text="${url.url}"></p>
-</div>
- <div>
-     <a th:href="@{/shorten/{generated}"/>
- </div>
-<a href="/index"> Back </a>
+<h1>Your urls</h1>
+<h4 th:text="'Original url:' + ${Url.urlinput}" />
+<p> The shortened link:</p>
+<a href="#" th:href="@{${Url.urlinput}}" th:text="'localhost:8080/shortit/' + ${Url.generatedKey}"></a>
+
+<p> If you want to shorten again:</p>
+<a href="/shortit">Submint another Url</a>
 </body>
 </html>

@@ -3,7 +3,7 @@ package com.greenfox.exams.springretake.service;
 import com.greenfox.exams.springretake.domain.Url;
 import com.greenfox.exams.springretake.repository.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
@@ -11,39 +11,25 @@ import java.util.Random;
  * Created by ${rudolfps} on 2017.01.23..
  */
 
-@Component
+@Service
 public class UrlService {
-    
-    UrlRepository urlRepo;
+
+    UrlRepository urlRepository;
 
     @Autowired
-    public UrlService(UrlRepository urlRepo) {
-        this.urlRepo = urlRepo;
+    public UrlService(UrlRepository urlRepository) {
+        this.urlRepository = urlRepository;
     }
-    public Url savetoRepo (Url url){
-        return urlRepo.save(url);
-    }
-    public Url findOne(Url url) {
-        return  urlRepo.findOneByUrl(url);
-    }
-    public String findeagain(String generated){
-        return urlRepo.findOneByGenerated(generated);
-    }
-    public String validate(Url url) {
-            if (checkUrl(url)){
-                return url.getUrl();
-            }else
-                return "http://" + url.getUrl();
-        }
 
-    public String shortenUrls(){
-        String shortened;
-        return shortened = "shortenit/" + generateRandomString();
+    public Url savetoRepo(Url url) {
+        return urlRepository.save(url);
     }
-    private boolean checkUrl(Url url) {
-        return url.getUrl().contains("http") || url.getUrl().contains("https");
+
+    public boolean checkUrl(Url url) {
+        return url.getUrlinput().contains("http") || url.getUrlinput().contains("https");
     }
-    private String generateRandomString(){
+
+    public String generateKey() {
         char[] chars = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
@@ -55,4 +41,3 @@ public class UrlService {
         return generated;
     }
 }
-

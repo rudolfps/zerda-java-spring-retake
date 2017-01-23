@@ -9,6 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 
 
 public interface UrlRepository extends CrudRepository<Url, Long>{
-    Url findOneByUrl(Url url);
-    String findOneByGenerated(String generated);
+    public Url findByGeneratedKey(String generatedKey);
+    public Url findByUrlinput(String urlinput);
 }

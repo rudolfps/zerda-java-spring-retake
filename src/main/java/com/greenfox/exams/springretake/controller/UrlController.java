@@ -1,6 +1,7 @@
 package com.greenfox.exams.springretake.controller;
 
 import com.greenfox.exams.springretake.domain.Url;
+import com.greenfox.exams.springretake.repository.UrlRepository;
 import com.greenfox.exams.springretake.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,28 +15,42 @@ import org.springframework.web.bind.annotation.*;
 public class UrlController {
 
     UrlService urlService;
+    UrlRepository urlRepository;
 
     @Autowired
-    public UrlController(UrlService urlService) {
+    public UrlController(UrlService urlService, UrlRepository urlRepository) {
         this.urlService = urlService;
+        this.urlRepository= urlRepository;
     }
 
-    @GetMapping(value = "/shortenit")
-    public String showForm(Url url) {
-        return "shortener";
+    @GetMapping("/shortit")
+    public String showmain(Model model, Url url) {
+        model.addAttribute("Url", new Url());
+        return "mainform";
     }
 
-    @PostMapping(value = "/submit")
-    public String submit(@ModelAttribute Url url, @PathVariable String generated) {
-        urlService.validate(url);
-        url.setGenerated(urlService.shortenUrls());
+    @PostMapping("/shortit")
+    public String urlSubmit(@ModelAttribute Url url, Model model) {
+        if(urlService.checkUrl(url)) {
+            url.setGeneratedKey(urlService.generateKey());
+            urlService.savetoRepo(url);
+            model.addAttribute("Url", urlRepository.findByGeneratedKey(url.getGeneratedKey()));
+            return "showpage";
+        }else
+            url.setUrlinput("http://" + url.getUrlinput());
+        url.setGeneratedKey(urlService.generateKey());
         urlService.savetoRepo(url);
-        return "redirect:/shorten/" + url.getGenerated();
+        model.addAttribute("Url", urlRepository.findByGeneratedKey(url.getGeneratedKey()));
+        return "showpage";
     }
 
-    @RequestMapping("/shorten/{generated}")
-    public String showNewUrl(Model model, @PathVariable String generated) {
-        model.addAttribute("Url",urlService.findeagain(generated));
-        return "showpage";
+    @GetMapping("{urlinput}")
+    public String redirectTo(Model model, @PathVariable String urlinput){
+        return "redirect:" + urlRepository.findByUrlinput(urlinput).getUrlinput();
+    }
+
+    @RequestMapping(value="/error", method = RequestMethod.GET)
+    public String error_404(){
+        return "mainform";
     }
 }

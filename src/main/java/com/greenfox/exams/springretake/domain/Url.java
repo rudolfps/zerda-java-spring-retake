@@ -18,5 +18,8 @@ public class ShortenUrl {
         private Long id;
         @NotNull
         private String url;
+        private String generated;
+
     }
+
 

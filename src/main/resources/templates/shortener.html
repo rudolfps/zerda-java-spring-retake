@@ -12,7 +12,7 @@
             which you want to shorten, than push the shorten button,
             and that's it! </p>
         <p>
-        <form class="form-group" th:action="@{/shortener}" th:object="${url}" method="POST">
+        <form class="form-group" th:action="@{/submit}" th:object="${url}" method="POST">
                 <input type="text" class="form-control" th:field="*{url}" placeholder="insert your url"/>
             <button type="submit" class="btn btn-primary">Shorten </button>
         </form>

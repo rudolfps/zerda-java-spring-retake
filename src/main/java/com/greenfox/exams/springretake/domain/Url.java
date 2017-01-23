@@ -12,14 +12,14 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="urlstore")
 @Data
-public class ShortenUrl {
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private Long id;
-        @NotNull
-        private String url;
-        private String generated;
+public class Url {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @NotNull
+    private String url;
+    private String generated;
 
-    }
+}
 
 

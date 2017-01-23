@@ -1,6 +1,6 @@
 package com.greenfox.exams.springretake.repository;
 
-import com.greenfox.exams.springretake.domain.ShortenUrl;
+import com.greenfox.exams.springretake.domain.Url;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -8,5 +8,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 
 
-public interface UrlRepository extends CrudRepository<ShortenUrl, Long>{
+public interface UrlRepository extends CrudRepository<Url, Long>{
+    Url findOneByUrl(Url url);
+    String findOneByGenerated(String generated);
 }

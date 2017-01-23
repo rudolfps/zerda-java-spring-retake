@@ -46,11 +46,11 @@ public class UrlController {
 
     @GetMapping("{urlinput}")
     public String redirectTo(Model model, @PathVariable String urlinput){
+        if(urlRepository.findByUrlinput(urlinput).getUrlinput()== null){
+            return "mainform";
+        }
+        else
         return "redirect:" + urlRepository.findByUrlinput(urlinput).getUrlinput();
     }
 
-    @RequestMapping(value="/error", method = RequestMethod.GET)
-    public String error_404(){
-        return "mainform";
-    }
 }

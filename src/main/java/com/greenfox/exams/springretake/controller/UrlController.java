@@ -25,12 +25,12 @@ public class UrlController {
         return "shortener";
     }
 
-    @PostMapping(value = "/shortenit/{generated}")
+    @PostMapping(value = "/submit")
     public String submit(@ModelAttribute Url url, @PathVariable String generated) {
         urlService.validate(url);
         url.setGenerated(urlService.shortenUrls());
         urlService.savetoRepo(url);
-        return "redirect:/shortenit/" + url.getGenerated();
+        return "redirect:/shorten/" + url.getGenerated();
     }
 
     @RequestMapping("/shorten/{generated}")

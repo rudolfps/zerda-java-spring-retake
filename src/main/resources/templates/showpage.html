@@ -8,9 +8,8 @@
 <h1>Your urls</h1>
 <h4 th:text="'Original url:' + ${Url.urlinput}" />
 <p> The shortened link:</p>
-<a href="#" th:href="@{${Url.urlinput}}" th:text="'localhost:8080/shortit/' + ${Url.generatedKey}"></a>
-
+<a href="#" th:href="@{'/shortit/' +${Url.generatedKey}}" th:text="'localhost:8080/shortit/' + ${Url.generatedKey}"></a>
 <p> If you want to shorten again:</p>
-<a href="/shortit">Submint another Url</a>
+<a href="/shortit">Submit another Url</a>
 </body>
 </html>

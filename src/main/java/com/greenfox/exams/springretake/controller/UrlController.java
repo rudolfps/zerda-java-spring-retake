@@ -44,13 +44,13 @@ public class UrlController {
         return "showpage";
     }
 
-    @GetMapping("{urlinput}")
-    public String redirectTo(Model model, @PathVariable String urlinput){
-        if(urlRepository.findByUrlinput(urlinput).getUrlinput()== null){
-            return "mainform";
+    @GetMapping(value="/shortit/{generatedKey}")
+    public String redirectTo( @PathVariable("generatedKey") String  generatedKey){
+        if(urlRepository.findByGeneratedKey(generatedKey)!= null){
+            return "redirect:" + urlRepository.findByGeneratedKey(generatedKey).getUrlinput();
         }
         else
-        return "redirect:" + urlRepository.findByUrlinput(urlinput).getUrlinput();
+        return "mainform";
     }
 
 }
